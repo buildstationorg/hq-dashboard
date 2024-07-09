@@ -1,5 +1,5 @@
 import BioChipMint from "@/components/biochip-mint";
-import Image from "next/image";
+import BioChipImage from "@/components/biochip-image";
 
 export default function BioChip() {
   return (
@@ -11,13 +11,7 @@ export default function BioChip() {
         </p>
       </div>
       <div className="flex flex-row gap-4 mt-4">
-        <Image
-          src="/biochips/BioChipDefault.svg"
-          alt="biochip"
-          width={400}
-          height={400}
-          className="border-2 border-primary"
-        />
+        <BioChipImage />
         <BioChipMint />
       </div>
 
