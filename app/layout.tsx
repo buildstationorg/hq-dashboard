@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <main className="flex flex-col gap-8 items-center justify-center py-12 px-4">
+          <main className="flex flex-col gap-8 items-center justify-center py-12 px-4 font-mono">
             <div className="flex flex-col w-screen max-w-7xl">
               <Header />
               <div className="flex flex-row gap-4">
