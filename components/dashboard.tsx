@@ -1,12 +1,9 @@
 export default function Dashboard() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col py-6 px-4 h-[768px]">
       <div className="flex flex-col gap-2">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Dashboard</h1>
-        <p className="leading-7 [&:not(:first-child)]:mt-6">A simple tool to airdrop on Kaia chain</p>
-      </div>
-      <div className="flex flex-col gap-8">
-        Test
+        <h1 className="text-3xl font-extrabold">dashboard</h1>
+        <p className="leading-7 [&:not(:first-child)]:mt-6">overview of your activities</p>
       </div>
     </div>
   );
