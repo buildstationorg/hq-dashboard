@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { LayoutDashboard, Cpu, Bug } from "lucide-react";
 
-export default function Sidebar() {
+export default function SidebarDesktop() {
   const pathname = usePathname();
 
   function isActiveRoute(path: string) {
@@ -14,7 +14,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="flex flex-col gap-4 text-left border-r-2 py-6 pr-4 border-primary w-[200px]">
+    <div className="hidden lg:flex lg:flex-col gap-4 text-left border-r-2 py-6 px-4 border-primary w-[200px]">
       <Link
         href="/"
         className={`flex flex-row items-center text-xl ${isActiveRoute("/")}`}
