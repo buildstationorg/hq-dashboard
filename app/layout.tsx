@@ -25,11 +25,11 @@ export default function RootLayout({
           <main className="flex flex-col gap-8 items-center justify-center py-12 px-4">
             <div className="flex flex-col w-screen max-w-7xl">
               <Header />
-              {children}
+                {children}
+              <Footer />
             </div>
           </main>
         </Providers>
-        <Footer />
       </body>
     </html>
   );

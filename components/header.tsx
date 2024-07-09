@@ -2,8 +2,8 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Header() {
   return (
-    <div className="flex flex-row justify-between items-center border-b-4 p-4 border-primary">
-      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">HQ</h1>
+    <div className="flex flex-row justify-between items-center border-b-4 py-6 border-primary">
+      <h1 className="text-2xl lg:text-4xl font-extrabold">buildstation<span className="text-2xl lg:text-4xl font-medium bg-primary rounded-md text-secondary px-2 py-1 ml-2">HQ</span></h1>
       <ConnectButton />
     </div>
   );
