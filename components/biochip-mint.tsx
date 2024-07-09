@@ -20,7 +20,7 @@ export default function BioChipMint() {
   }
 
   return (
-    <div className="flex flex-col gap-8 p-6 border-2 border-primary w-full h-full">
+    <div className="flex flex-col gap-8 p-6 border-2 border-primary max-w-full h-full">
       <h2 className="text-xl font-semibold">create your biochip</h2>
       <p className="text-md">all legends start somewhere. begin yours by minting this biochip and accumulate street creds. will cost you a small fee. depending on the connected chain, the biochip design will also change accordingly.</p>
       {account.address ? <p className="flex flex-row items-center text-lg"><Minus className="w-6 h-6 mr-2" />{`${getFee(chainId)}`}</p> : <p className="flex flex-row items-center text-lg text-red-500"><CircleAlert className="w-6 h-6 mr-2" />connect wallet to check fee</p>}

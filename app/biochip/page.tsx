@@ -1,5 +1,6 @@
 import BioChipMint from "@/components/biochip-mint";
 import BioChipImage from "@/components/biochip-image";
+import BiochipStash from "@/components/biochip-stash";
 
 export default function BioChip() {
   return (
@@ -14,7 +15,7 @@ export default function BioChip() {
         <BioChipImage />
         <BioChipMint />
       </div>
-
+      <BiochipStash />
     </div>
   );
 }
