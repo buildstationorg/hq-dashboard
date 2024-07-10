@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "./ui/button";
-import { Binary, CircleAlert, Minus } from "lucide-react";
+import { Binary, CircleAlert, Minus, Info, Loader2, Check, X, Hash, OctagonX } from "lucide-react";
 import {
   type BaseError,
   useAccount,
@@ -13,6 +14,7 @@ import {
 import { parseEther } from "viem";
 import { bioChipAbi } from "@/components/abis";
 import { BIOCHIP_CONTRACT_ADDRESS } from "@/components/contracts";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function BioChipMint() {
   const account = useAccount();
@@ -25,6 +27,8 @@ export default function BioChipMint() {
     useWaitForTransactionReceipt({
       hash,
     });
+
+  const [isAlertActive, setIsAlertActive] = useState<boolean>(false);
 
   function getFee(chainId: number) {
     switch (chainId) {
@@ -49,12 +53,21 @@ export default function BioChipMint() {
   }
 
   function mintBioChip() {
+    setIsAlertActive(true);
     writeContract({
       abi: bioChipAbi,
       address: getBioChipAddress(chainId),
       functionName: "mint",
       value: parseEther("1"),
     });
+  }
+
+  function closeAlert() {
+    setIsAlertActive(false);
+  }
+
+  function truncateAddress(address: string) {
+    return `${address.slice(0, 10)}...${address.slice(-10)}`;
   }
 
   return (
@@ -76,17 +89,73 @@ export default function BioChipMint() {
           connect wallet to check fee
         </p>
       )}
-      {account.address ? (
-        <Button className="w-fit text-lg px-6" onClick={mintBioChip}>
+      {isPending ? (
+        <Button className="w-[150px]" disabled>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          pending...
+        </Button>
+      ) : account.address ? (
+        <Button className="w-[150px] text-lg px-6" onClick={mintBioChip}>
           <Binary className="w-4 h-4 mr-2" />
           mint
         </Button>
       ) : (
-        <Button disabled className="w-fit text-lg px-6">
+        <Button disabled className="w-[150px] text-lg px-6">
           <Binary className="w-4 h-4 mr-2" />
           mint
         </Button>
       )}
+      <Alert
+        variant={`${error ? "destructive" : hash ? "default" : "default"}`}
+        className={`${error && isAlertActive ? "fixed bottom-6 right-6 w-[320px] bg-background h-fit" : hash && isAlertActive ? "fixed bottom-6 right-6 w-[320px] bg-background h-fit" : "hidden"}`}
+      >
+        <AlertTitle className="flex flex-row items-center justify-between">
+          <p className="text-lg font-semibold">transaction status</p>
+          <Button size="icon" variant="ghost" onClick={closeAlert}>
+            <X className="w-4 h-4"/>
+          </Button>
+        </AlertTitle>
+        <AlertDescription>
+          {isConfirming && (
+            <div className="flex flex-row gap-2 text-yellow-500 text-sm">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              confirming...
+            </div>
+          )}
+          {isConfirmed && (
+            <div className="flex flex-row gap-2 items-center text-green-500 text-sm">
+              <Check className="h-4 w-4" />
+              confirmed!
+            </div>
+          )}
+          {
+            // if there is an error, show the error message
+            error && (
+              <div className="flex flex-row gap-2 items-center text-sm text-red-500">
+                <OctagonX className="h-4 w-4" />
+                failed!{" "}
+                {(error as BaseError).shortMessage || error.message}
+              </div>
+            )
+          }
+          {hash ? (
+            <div className="flex flex-row gap-2 items-center text-sm">
+              <Hash className="w-4 h-4" />
+              <a
+                target="_blank"
+                className="text-blue-500 underline"
+                href={
+                  chainId === 1001
+                    ? `https://baobab.klaytnfinder.io/tx/${hash}`
+                    : `https://klaytnfinder.io/tx/${hash}`
+                }
+              >
+                {truncateAddress(hash)}
+              </a>
+            </div>
+          ) : null}
+        </AlertDescription>
+      </Alert>
     </div>
   );
 }
