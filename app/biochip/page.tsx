@@ -2,6 +2,8 @@ import BioChipMint from "@/components/biochip-mint";
 import BioChipImage from "@/components/biochip-image";
 import BiochipStash from "@/components/biochip-stash";
 
+
+
 export default function BioChip() {
   return (
     <div className="flex flex-col gap-2 py-6 pl-4 h-[768px]">
