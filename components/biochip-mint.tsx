@@ -71,7 +71,7 @@ export default function BioChipMint() {
   }
 
   return (
-    <div className="flex flex-col gap-8 p-6 border-2 border-primary w-full lg:max-w-full lg:h-full">
+    <div className="flex flex-col gap-8 p-6 border-2 border-primary w-full lg:max-w-full h-full">
       <h2 className="text-xl font-semibold">create your biochip</h2>
       <p className="text-md">
         all legends start somewhere. begin yours by minting this biochip and
