@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { Binary, CircleAlert, Minus, Info, Loader2, Check, X, Hash, OctagonX } from "lucide-react";
+import {
+  Binary,
+  CircleAlert,
+  Minus,
+  Info,
+  Loader2,
+  Check,
+  X,
+  Hash,
+  OctagonX,
+} from "lucide-react";
 import {
   type BaseError,
   useAccount,
@@ -107,12 +117,18 @@ export default function BioChipMint() {
       )}
       <Alert
         variant={`${error ? "destructive" : hash ? "default" : "default"}`}
-        className={`${error && isAlertActive ? "fixed bottom-6 right-6 w-[320px] bg-background h-fit" : hash && isAlertActive ? "fixed bottom-6 right-6 w-[320px] bg-background h-fit" : "hidden"}`}
+        className={`${
+          error && isAlertActive
+            ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-background h-fit border-2"
+            : hash && isAlertActive
+            ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-background h-fit border-primary"
+            : "hidden"
+        }`}
       >
         <AlertTitle className="flex flex-row items-center justify-between">
           <p className="text-lg font-semibold">transaction status</p>
           <Button size="icon" variant="ghost" onClick={closeAlert}>
-            <X className="w-4 h-4"/>
+            <X className="w-4 h-4" />
           </Button>
         </AlertTitle>
         <AlertDescription>
@@ -133,8 +149,7 @@ export default function BioChipMint() {
             error && (
               <div className="flex flex-row gap-2 items-center text-sm text-red-500">
                 <OctagonX className="h-4 w-4" />
-                failed!{" "}
-                {(error as BaseError).shortMessage || error.message}
+                failed! {(error as BaseError).shortMessage || error.message}
               </div>
             )
           }
