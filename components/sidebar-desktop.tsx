@@ -17,16 +17,16 @@ export default function SidebarDesktop() {
     <div className="hidden lg:flex lg:flex-col gap-4 text-left border-r-2 py-6 px-4 border-primary">
       <Link
         href="/"
-        className={`flex flex-row items-center text-xl ${isActiveRoute("/")} w-[170px]`}
+        className={`flex flex-row items-center text-xl ${isActiveRoute("/")} w-[190px]`}
       >
         <LayoutDashboard className="w-4 h-4 mr-2" />
         dashboard
       </Link>
-      <Link href="/biochip" className={`flex flex-row items-center text-xl ${isActiveRoute("/biochip")} w-[170px]`}>
+      <Link href="/biochip" className={`flex flex-row items-center text-xl ${isActiveRoute("/biochip")} w-[190px]`}>
         <Cpu className="w-4 h-4 mr-2" />
         biochip
       </Link>
-      <Link href="/bounty" className={`flex flex-row items-center text-xl ${isActiveRoute("/bounty")} w-[170px]`}>
+      <Link href="/bounty" className={`flex flex-row items-center text-xl ${isActiveRoute("/bounty")} w-[190px]`}>
         <Bug className="w-4 h-4 mr-2" />
         bounty
       </Link>
