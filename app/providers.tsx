@@ -9,7 +9,7 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { trustWallet, ledgerWallet } from "@rainbow-me/rainbowkit/wallets";
 import {
-  klaytn, // import klaytn mainnet
+  // klaytn, // import klaytn mainnet
   klaytnBaobab, // import klaytn testnet
 } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -29,9 +29,9 @@ const config = getDefaultConfig({
       wallets: [trustWallet, ledgerWallet],
     },
   ],
-  chains: [klaytn, klaytnBaobab],
+  chains: [klaytnBaobab],
   transports: {
-    [klaytn.id]: http("https://rpc.ankr.com/klaytn"), // Select RPC provider Ankr instead of the default
+    // [klaytn.id]: http("https://rpc.ankr.com/klaytn"), // Select RPC provider Ankr instead of the default
     [klaytnBaobab.id]: http("https://rpc.ankr.com/klaytn_testnet"), // Select RPC provider Ankr instead of the default
   },
   ssr: true, // Because it is Nextjs's App router, you need to declare ssr as true
