@@ -19,7 +19,7 @@ export default function BioChipImage() {
   }
 
   return (
-    <>
+    <div>
       <Image
         src={account.address ? getBioChipImage(chainId) : "/biochips/BioChipDefault.svg"}
         alt="biochip"
@@ -27,6 +27,6 @@ export default function BioChipImage() {
         height={400}
         className="border-2 border-primary"
       />
-    </>
+    </div>
   );
 }
