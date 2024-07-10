@@ -52,7 +52,7 @@ export default function RootLayout({
           <main className="flex flex-col gap-8 items-center justify-center py-12 px-4 font-mono">
             <div className="flex flex-col w-screen max-w-7xl">
               <Header />
-              <div className="flex flex-col lg:flex-row gap-4">
+              <div className="flex flex-col px-2 lg:flex-row gap-4">
                 <SidebarDesktop />
                 <SidebarMobile />
                 {children}
