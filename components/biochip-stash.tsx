@@ -106,19 +106,20 @@ export default function BioChipStash() {
   });
 
   return (
-    <div className="flex flex-col mt-8">
+    <div className="flex flex-col gap-4 mt-8">
       <h2 className="text-xl font-semibold">stash</h2>
-      <div>
-      <Image
-        src={account.address ? getBioChipImage(chainId) : "/biochips/BioChipDefault.svg"}
-        alt="biochip"
-        width={50}
-        height={50}
-        className="border-2 border-primary"
-      />
+      <div className="flex flex-row w-fit relative">
+        <Image
+          src={account.address ? getBioChipImage(chainId) : "/biochips/BioChipDefault.svg"}
+          alt="biochip"
+          width={50}
+          height={50}
+          className="border-2 border-primary"
+        />
+        <p className="bg-primary rounded-md px-2 py-1 h-fit text-secondary absolute left-10 top-[-8px]">x{bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}</p>
       </div>
-      <p>BioChip x {bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}</p>
-      <div className="rounded-md border">
+      
+      <div className="border-2 border-primary">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
