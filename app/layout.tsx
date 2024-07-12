@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from 'next/script'
 import { Inter } from "next/font/google";
 import "./globals.css";
 import '@rainbow-me/rainbowkit/styles.css';
@@ -47,6 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script defer data-domain="hq.buildstation.org" src="https://analytics.blockcmd.com/js/script.js"></Script>
       <body className={inter.className}>
         <Providers>
           <main className="flex flex-col gap-8 items-center justify-center py-12 px-4 font-mono">
