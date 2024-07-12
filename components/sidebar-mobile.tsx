@@ -29,7 +29,7 @@ export default function SidebarMobile() {
           className="ml-2 mt-4 w-fit border-2 border-primary rounded-sm text-base lg:hidden"
         >
           <ArrowRightFromLine className="w-6 h-6 mr-2" />
-          open menu
+          menu
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="pr-6">
