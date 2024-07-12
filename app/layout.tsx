@@ -48,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script defer data-domain="hq.buildstation.org" src="https://analytics.blockcmd.com/js/script.js"></Script>
+      <Script defer data-domain="hq.buildstation.org" src="https://analytics.pyhash.com/js/script.js"></Script>
       <body className={inter.className}>
         <Providers>
           <main className="flex flex-col gap-8 items-center justify-center py-12 px-4 font-mono">
