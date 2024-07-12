@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: 'buildstation',
     images: [
       {
-        url: '/buildstation-tbn.png',
+        url: '/hq-buildstation-tbn.png',
         width: 1200,
         height: 630,
         alt: 'og-image',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: 'buildstation',
     description: 'your headquarter to manage all your buildstation projects',
     creator: '@buildstationorg',
-    images: ['/buildstation-tbn.png'],
+    images: ['/hq-buildstation-tbn.png'],
   },
 }
 
