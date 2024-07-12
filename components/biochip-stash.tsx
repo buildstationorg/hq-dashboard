@@ -24,6 +24,7 @@ import Image from "next/image";
 import { bioChipAbi } from "@/components/abis";
 import { BIOCHIP_CONTRACT_ADDRESS } from "@/components/contracts";
 import { Address, formatEther, formatUnits } from "viem";
+import { Skeleton } from "./ui/skeleton";
 
 type BioChip = {
   id: string;
@@ -49,11 +50,11 @@ export default function BioChipStash() {
   function getBioChipImage(chainId: number) {
     switch (chainId) {
       case 8217:
-        return "/biochips/BioChipKaia.svg"
+        return "/biochips/BioChipKaia.svg";
       case 1001:
-        return "/biochips/BioChipKaia.svg"
+        return "/biochips/BioChipKaia.svg";
       default:
-        return "/biochips/BioChipDefault.svg"
+        return "/biochips/BioChipDefault.svg";
     }
   }
 
@@ -73,16 +74,19 @@ export default function BioChipStash() {
     args: [account.address as Address, index],
   }));
 
-  const { data: bioChipData, isLoading: bioChipDataIsLoading } =
-    useReadContracts({
-      contracts: contractCalls,
-    });
+  const { data: bioChipData } = useReadContracts({
+    contracts: contractCalls,
+  });
 
-  const data: BioChip[] = bioChipData?.map((bioChipNumber, index) => ({
-    id: (index + 1).toString(),
-    bioChipNumber: typeof bioChipNumber.result === "bigint" ? formatUnits(bioChipNumber.result, 0) : "0",
-    status: "uninitialized",
-  })) || [];
+  const data: BioChip[] =
+    bioChipData?.map((bioChipNumber, index) => ({
+      id: (index + 1).toString(),
+      bioChipNumber:
+        typeof bioChipNumber.result === "bigint"
+          ? formatUnits(bioChipNumber.result, 0)
+          : "0",
+      status: "uninitialized",
+    })) || [];
 
   const columns: ColumnDef<BioChip>[] = [
     {
@@ -110,15 +114,20 @@ export default function BioChipStash() {
       <h2 className="text-xl font-semibold">stash</h2>
       <div className="flex flex-row w-fit relative">
         <Image
-          src={account.address ? getBioChipImage(chainId) : "/biochips/BioChipDefault.svg"}
+          src={
+            account.address
+              ? getBioChipImage(chainId)
+              : "/biochips/BioChipDefault.svg"
+          }
           alt="biochip"
           width={50}
           height={50}
           className="border-2 border-primary"
         />
-        <p className="bg-primary rounded-md px-2 py-1 h-fit text-secondary absolute left-10 top-[-8px]">x{bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}</p>
+        <p className="bg-primary rounded-md px-2 py-1 h-fit text-secondary absolute left-10 top-[-8px]">
+          x{bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}
+        </p>
       </div>
-      
       <div className="border-2 border-primary">
         <Table>
           <TableHeader>
