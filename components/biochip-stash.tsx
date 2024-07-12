@@ -1,11 +1,11 @@
-"use client"
- 
+"use client";
+
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -13,23 +13,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { useReadContract, useAccount, useChainId, useReadContracts } from "wagmi";
+} from "@/components/ui/table";
+import {
+  useReadContract,
+  useAccount,
+  useChainId,
+  useReadContracts,
+} from "wagmi";
+import Image from "next/image";
 import { bioChipAbi } from "@/components/abis";
 import { BIOCHIP_CONTRACT_ADDRESS } from "@/components/contracts";
-import { Address } from "viem";
-
+import { Address, formatEther, formatUnits } from "viem";
 
 type BioChip = {
-  id: string
-  bioChipNumber: number
-  status: "uninitialized" | "initialized"
-}
-
+  id: string;
+  bioChipNumber: string;
+  status: "uninitialized" | "initialized";
+};
 
 export default function BioChipStash() {
-  const account = useAccount()
-  const chainId = useChainId()
+  const account = useAccount();
+  const chainId = useChainId();
 
   function getBioChipAddress(chainId: number) {
     switch (chainId) {
@@ -41,38 +45,44 @@ export default function BioChipStash() {
         return BIOCHIP_CONTRACT_ADDRESS.default;
     }
   }
+
+  function getBioChipImage(chainId: number) {
+    switch (chainId) {
+      case 8217:
+        return "/biochips/BioChipKaia.svg"
+      case 1001:
+        return "/biochips/BioChipKaia.svg"
+      default:
+        return "/biochips/BioChipDefault.svg"
+    }
+  }
+
   const { data: bioChipBalance } = useReadContract({
     abi: bioChipAbi,
     address: getBioChipAddress(chainId),
-    functionName: 'balanceOf',
+    functionName: "balanceOf",
     args: [account.address as Address],
-  })
-
-  const contractCalls = Array.from({ length: Number(bioChipBalance) }).map(
-    (_, index) => ({
-      abi: bioChipAbi,
-      address: getBioChipAddress(chainId),
-      functionName: "tokenOfOwnerByIndex",
-      args: [index],
-    })
-  );
-
-  const { data: bioChipData, isLoading: bioChipDataIsLoading } = useReadContracts({
-    contracts: contractCalls,
   });
 
-  const data: BioChip[] = [
-    {
-      id: "1",
-      bioChipNumber: 2,
-      status: "uninitialized",
-    },
-    {
-      id: "2",
-      bioChipNumber: 3,
-      status: "initialized",
-    },
-  ]
+  const contractCalls = Array.from({
+    length: Number(bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"),
+  }).map((_, index) => ({
+    abi: bioChipAbi,
+    address: getBioChipAddress(chainId),
+    functionName: "tokenOfOwnerByIndex",
+    args: [account.address as Address, index],
+  }));
+
+  const { data: bioChipData, isLoading: bioChipDataIsLoading } =
+    useReadContracts({
+      contracts: contractCalls,
+    });
+
+  const data: BioChip[] = bioChipData?.map((bioChipNumber, index) => ({
+    id: (index + 1).toString(),
+    bioChipNumber: typeof bioChipNumber.result === "bigint" ? formatUnits(bioChipNumber.result, 0) : "0",
+    status: "uninitialized",
+  })) || [];
 
   const columns: ColumnDef<BioChip>[] = [
     {
@@ -87,65 +97,77 @@ export default function BioChipStash() {
       accessorKey: "status",
       header: "Status",
     },
-  ]
+  ];
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-  })
-
-
+  });
 
   return (
     <div className="flex flex-col mt-8">
       <h2 className="text-xl font-semibold">stash</h2>
-      <p>Total BioChip: {bioChipBalance}</p>
-      <p>{JSON.stringify(bioChipData)}</p>
+      <div>
+      <Image
+        src={account.address ? getBioChipImage(chainId) : "/biochips/BioChipDefault.svg"}
+        alt="biochip"
+        width={50}
+        height={50}
+        className="border-2 border-primary"
+      />
+      </div>
+      <p>BioChip x {bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}</p>
       <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  );
+                })}
               </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
