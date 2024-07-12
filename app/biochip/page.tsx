@@ -17,7 +17,7 @@ export default function BioChip() {
         <BioChipImage />
         <BioChipMint />
       </div>
-      {/* <BiochipStash /> */}
+      <BiochipStash />
     </div>
   );
 }

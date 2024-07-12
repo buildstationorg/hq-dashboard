@@ -20,6 +20,7 @@ import {
   useChainId,
   useReadContracts,
 } from "wagmi";
+import { useMemo } from "react";
 import Image from "next/image";
 import { bioChipAbi } from "@/components/abis";
 import { BIOCHIP_CONTRACT_ADDRESS } from "@/components/contracts";
@@ -66,28 +67,27 @@ export default function BioChipStash() {
     args: [account.address as Address],
   });
 
-  const contractCalls = Array.from({
+  const contractCalls = useMemo(() => Array.from({
     length: Number(bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"),
   }).map((_, index) => ({
     abi: bioChipAbi,
     address: getBioChipAddress(chainId),
     functionName: "tokenOfOwnerByIndex",
     args: [account.address as Address, index],
-  }));
-
+  })), [bioChipBalance, chainId, account.address]);
+  
   const { data: bioChipData } = useReadContracts({
     contracts: contractCalls,
   });
-
-  const data: BioChip[] =
-    bioChipData?.map((bioChipNumber, index) => ({
-      id: (index + 1).toString(),
-      bioChipNumber:
-        typeof bioChipNumber.result === "bigint"
-          ? formatUnits(bioChipNumber.result, 0)
-          : "0",
-      status: "uninitialized",
-    })) || [];
+  
+  const data: BioChip[] = useMemo(() => bioChipData?.map((bioChipNumber, index) => ({
+    id: (index + 1).toString(),
+    bioChipNumber:
+      typeof bioChipNumber.result === "bigint"
+        ? formatUnits(bioChipNumber.result, 0)
+        : "0",
+    status: "uninitialized",
+  })) || [], [bioChipData]);
 
   const columns: ColumnDef<BioChip>[] = [
     {

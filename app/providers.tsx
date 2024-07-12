@@ -32,7 +32,7 @@ const config = getDefaultConfig({
   chains: [klaytnBaobab],
   transports: {
     // [klaytn.id]: http("https://rpc.ankr.com/klaytn"), // Select RPC provider Ankr instead of the default
-    [klaytnBaobab.id]: http("https://rpc.ankr.com/klaytn_testnet"), // Select RPC provider Ankr instead of the default
+    [klaytnBaobab.id]: http("https://klaytn-baobab.blockpi.network/v1/rpc/public"), // Select RPC provider Ankr instead of the default
   },
   ssr: true, // Because it is Nextjs's App router, you need to declare ssr as true
 });
