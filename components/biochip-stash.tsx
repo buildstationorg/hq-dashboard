@@ -24,7 +24,8 @@ import Image from "next/image";
 import { bioChipAbi } from "@/components/abis";
 import { BIOCHIP_CONTRACT_ADDRESS } from "@/components/contracts";
 import { Address, formatEther, formatUnits } from "viem";
-import { Skeleton } from "./ui/skeleton";
+import { Button } from "@/components/ui/button";
+import { RefreshCw } from 'lucide-react';
 
 type BioChip = {
   id: string;
@@ -58,7 +59,7 @@ export default function BioChipStash() {
     }
   }
 
-  const { data: bioChipBalance } = useReadContract({
+  const { data: bioChipBalance, refetch } = useReadContract({
     abi: bioChipAbi,
     address: getBioChipAddress(chainId),
     functionName: "balanceOf",
@@ -112,21 +113,24 @@ export default function BioChipStash() {
   return (
     <div className="flex flex-col gap-4 mt-8">
       <h2 className="text-xl font-semibold">stash</h2>
-      <div className="flex flex-row w-fit relative">
-        <Image
-          src={
-            account.address
-              ? getBioChipImage(chainId)
-              : "/biochips/BioChipDefault.svg"
-          }
-          alt="biochip"
-          width={50}
-          height={50}
-          className="border-2 border-primary"
-        />
-        <p className="bg-primary rounded-md px-2 py-1 h-fit text-secondary absolute left-10 top-[-8px]">
-          x{bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}
-        </p>
+      <div className="flex flex-row justify-between">
+        <div className="flex flex-row w-fit relative">
+          <Image
+            src={
+              account.address
+                ? getBioChipImage(chainId)
+                : "/biochips/BioChipDefault.svg"
+            }
+            alt="biochip"
+            width={50}
+            height={50}
+            className="border-2 border-primary"
+          />
+          <p className="bg-primary rounded-md px-2 py-1 h-fit text-secondary absolute left-10 top-[-8px]">
+            x{bioChipBalance ? formatUnits(bioChipBalance, 0) : "0"}
+          </p>
+        </div>
+        <Button variant="outline" size="icon" onClick={() => refetch()}><RefreshCw className="w-6 h-6" /></Button>
       </div>
       <div className="border-2 border-primary">
         <Table>
