@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import {
   Sheet,
+  SheetHeader,
+  SheetTitle,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -32,7 +34,11 @@ export default function SidebarMobile() {
           menu
         </Button>
       </SheetTrigger>
+
       <SheetContent side="left" className="pr-6">
+        <SheetHeader>
+          <SheetTitle className="text-xl lg:text-4xl font-extrabold">buildstation<span className="text-xl lg:text-4xl font-medium bg-primary rounded-md text-secondary px-2 py-1 ml-2">HQ</span></SheetTitle>
+        </SheetHeader>
         <div className="flex flex-col space-y-3 pt-6">
           <Link
             href="/"
