@@ -1,4 +1,34 @@
+import type { Metadata } from "next";
 import BountyContent from "@/components/bounty-content";
+
+export const metadata: Metadata = {
+  title: "buildstation HQ - bounty",
+  description: "earn your bread and make your mark",
+  metadataBase: new URL("https://hq.buildstation.org/bounty"),
+  openGraph: {
+    title: "buildstation HQ - bounty",
+    description: "earn your bread and make your mark",
+    url: "https://hq.buildstation.org/bounty",
+    siteName: "buildstation",
+    images: [
+      {
+        url: "/buildstation-bounty.png",
+        width: 1200,
+        height: 630,
+        alt: "og-image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "buildstation HQ - bounty",
+    description: "earn your bread and make your mark",
+    creator: "@buildstationorg",
+    images: ["/buildstation-bounty.png"],
+  },
+};
 
 export default function Bounty() {
   return (
