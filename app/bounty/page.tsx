@@ -4,7 +4,7 @@ import BountyContent from "@/components/bounty-content";
 export const metadata: Metadata = {
   title: "buildstation HQ - bounty",
   description: "earn your bread and make your mark",
-  metadataBase: new URL("https://hq.buildstation.org/bounty"),
+  metadataBase: new URL("https://hq.buildstation.org/"),
   openGraph: {
     title: "buildstation HQ - bounty",
     description: "earn your bread and make your mark",

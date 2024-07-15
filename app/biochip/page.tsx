@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "buildstation HQ - biochip",
   description: "the manisfestation of your digital identity and legacy",
-  metadataBase: new URL("https://hq.buildstation.org/biochip"),
+  metadataBase: new URL("https://hq.buildstation.org/"),
   openGraph: {
     title: "buildstation HQ - biochip",
     description: "the manisfestation of your digital identity and legacy",
