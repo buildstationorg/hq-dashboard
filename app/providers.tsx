@@ -37,6 +37,7 @@ const config = getDefaultConfig({
   ssr: true, // Because it is Nextjs's App router, you need to declare ssr as true
 });
 
+
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
