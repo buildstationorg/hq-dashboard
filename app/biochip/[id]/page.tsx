@@ -1,37 +1,50 @@
+"use client";
+
 import BioChipInitialize from "@/components/biochip-initialize";
 import BioChipImage from "@/components/biochip-image";
 import BioChipInfo from "@/components/biochip-info";
-import Image from "next/image";
 import {
-  getContract,
   getContractAddress,
   concat,
-  WalletClient,
-  encodeFunctionData,
   encodeAbiParameters,
   pad,
-  parseAbiParameters,
-  numberToHex,
   getAddress,
-  numberToBytes,
-  bytesToHex,
 } from "viem";
 import {
-  type BaseError,
-  useAccount,
   useChainId,
-  useBalance,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-  useReadContract,
   useBytecode,
 } from "wagmi";
+import {
+  BIOCHIP_CONTRACT_ADDRESS,
+  ERC6551_ADDRESSES,
+} from "@/components/contracts";
+import { Address } from "viem";
 
 export default function Page({ params }: { params: { id: string } }) {
+  const chainId = useChainId();
+  const defaultSalt = 0;
+  function getBioChipAddress(chainId: number) {
+    switch (chainId) {
+      case 8217:
+        return BIOCHIP_CONTRACT_ADDRESS.kaia;
+      case 1001:
+        return BIOCHIP_CONTRACT_ADDRESS.kaiaKairos;
+      default:
+        return BIOCHIP_CONTRACT_ADDRESS.default;
+    }
+  }
+  const tokenBoundV3AccountAddress = getTokenboundV3Account(
+    getBioChipAddress(chainId),
+    params.id,
+    chainId,
+    ERC6551_ADDRESSES.registryV3 as Address,
+    ERC6551_ADDRESSES.defaultImplementation as Address,
+    defaultSalt
+  )
 
-  // const tokenBoundV3AccountDeployed = useBytecode({
-  //   address: getTokenboundV3Account("0x5D98e2C833D8E9A70fee8b271FEd59b4374C8ef6", params.id, 1001, "0x000000006551c19487814612e58FE06813775758", "0x41C8f39463A868d3A88af00cd0fe7102F30E44eC", 1),
-  // })
+  const tokenBoundV3AccountDeployed = useBytecode({
+    address: tokenBoundV3AccountAddress,
+  });
 
   function getTokenboundV3Account(
     tokenContract: string,
@@ -42,8 +55,8 @@ export default function Page({ params }: { params: { id: string } }) {
     salt?: number
   ): `0x${string}` {
     salt = salt ?? 0;
-    const erc6551implementation = "0x41C8f39463A868d3A88af00cd0fe7102F30E44eC";
-    const erc6551registry = "0x000000006551c19487814612e58FE06813775758";
+    const erc6551implementation = ERC6551_ADDRESSES.defaultImplementation;
+    const erc6551registry = ERC6551_ADDRESSES.registryV3;
     const types = [
       { type: "uint256" }, // salt
       { type: "uint256" }, // chainId
@@ -92,7 +105,6 @@ export default function Page({ params }: { params: { id: string } }) {
     return array;
   }
 
-
   return (
     <div className="flex flex-col gap-2 py-6 px-2 lg:px-4 h-full">
       <div className="flex flex-col gap-4">
@@ -103,8 +115,13 @@ export default function Page({ params }: { params: { id: string } }) {
       </div>
       <div className="flex flex-col lg:flex-row lg:items-start gap-4 mt-4 lg:h-full">
         <BioChipImage />
-        {/* <BioChipInitialize id={params.id} /> */}
-        <BioChipInfo />
+        {
+          tokenBoundV3AccountDeployed.data?.length && tokenBoundV3AccountDeployed.data.length > 2 ? (
+            <BioChipInfo address={tokenBoundV3AccountAddress} />
+          ) : (
+            <BioChipInitialize id={params.id} />
+          )
+        }   
       </div>
     </div>
   );
