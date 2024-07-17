@@ -48,7 +48,7 @@ export default function BioChipInitialize({ id }: { id: string }) {
       args: [
         ERC6551_ADDRESSES.defaultImplementation as Address,
         defaultSalt,
-        BigInt(getBioChipAddress(chainId)),
+        BigInt(chainId),
         getBioChipAddress(chainId),
         BigInt(id),
       ],
@@ -100,9 +100,9 @@ export default function BioChipInitialize({ id }: { id: string }) {
       variant={`${error ? "destructive" : hash ? "default" : "default"}`}
       className={`${
         error && isAlertActive
-          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-secondary h-fit border-2"
+          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-background h-fit border-2 z-[10]"
           : hash && isAlertActive
-          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-secondary h-fit border-primary"
+          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-background h-fit border-primary z-[10]"
           : "hidden"
       }`}
     >
