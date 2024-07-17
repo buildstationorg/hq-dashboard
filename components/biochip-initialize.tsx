@@ -78,43 +78,31 @@ export default function BioChipInitialize({ id }: { id: string }) {
     <div className="flex flex-col gap-8 p-6 border-2 border-primary w-full lg:max-w-full h-full">
     <h2 className="text-xl font-semibold">initialize the biochip</h2>
     <p className="text-md">
-      all legends start somewhere. begin yours by minting this biochip and
-      accumulate street creds. will cost you a small fee. depending on the
-      connected chain, the biochip design will also change accordingly.
+      activate your biochip information storage. after activation, your biochip can be used to store your personal records. this action is irreversible.
     </p>
-    {account.address ? (
-      <p className="flex flex-row items-center text-lg">
-        <Minus className="w-6 h-6 mr-2" />
-      </p>
-    ) : (
-      <p className="flex flex-row items-center text-lg text-red-500">
-        <CircleAlert className="w-6 h-6 mr-2" />
-        connect wallet to check fee
-      </p>
-    )}
     {isPending ? (
-      <Button className="w-[150px]" disabled>
+      <Button className="w-[200px]" disabled>
         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
         pending...
       </Button>
     ) : account.address ? (
-      <Button className="w-[150px] text-lg px-6" onClick={initializeBioChip}>
+      <Button className="w-[200px] text-lg px-6" onClick={initializeBioChip}>
         <Binary className="w-4 h-4 mr-2" />
-        mint
+        initialize
       </Button>
     ) : (
-      <Button disabled className="w-[150px] text-lg px-6">
+      <Button disabled className="w-[200px] text-lg px-6">
         <Binary className="w-4 h-4 mr-2" />
-        mint
+        initialize
       </Button>
     )}
     <Alert
       variant={`${error ? "destructive" : hash ? "default" : "default"}`}
       className={`${
         error && isAlertActive
-          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-background h-fit border-2"
+          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-secondary h-fit border-2"
           : hash && isAlertActive
-          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-background h-fit border-primary"
+          ? "fixed bottom-6 right-2 lg:bottom-6 lg:right-6 w-11/12 lg:w-[350px] bg-secondary h-fit border-primary"
           : "hidden"
       }`}
     >
