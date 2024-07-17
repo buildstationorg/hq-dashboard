@@ -1,5 +1,6 @@
 import BioChipInitialize from "@/components/biochip-initialize";
 import BioChipImage from "@/components/biochip-image";
+import BioChipInfo from "@/components/biochip-info";
 import Image from "next/image";
 import {
   getContract,
@@ -100,9 +101,10 @@ export default function Page({ params }: { params: { id: string } }) {
           your biochip information
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row gap-4 mt-4 lg:h-[400px]">
+      <div className="flex flex-col lg:flex-row lg:items-start gap-4 mt-4 lg:h-full">
         <BioChipImage />
-        <BioChipInitialize id={params.id} />
+        {/* <BioChipInitialize id={params.id} /> */}
+        <BioChipInfo />
       </div>
     </div>
   );
