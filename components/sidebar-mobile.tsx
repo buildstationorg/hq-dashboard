@@ -1,8 +1,10 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import Link, { LinkProps } from "next/link"
+import { useRouter } from "next/navigation"
+import { cn } from "@/lib/utils"
 import { Button } from "./ui/button";
 import {
   Sheet,
@@ -14,7 +16,7 @@ import {
 import { LayoutDashboard, Cpu, Bug, ArrowRightFromLine } from "lucide-react";
 
 export default function SidebarMobile() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
   function isActiveRoute(path: string) {
@@ -40,35 +42,67 @@ export default function SidebarMobile() {
           <SheetTitle className="text-xl lg:text-4xl font-extrabold">buildstation<span className="text-xl lg:text-4xl font-medium bg-primary rounded-md text-secondary px-2 py-1 ml-2">HQ</span></SheetTitle>
         </SheetHeader>
         <div className="flex flex-col space-y-3 pt-6">
-          <Link
+          <MobileLink
             href="/"
             className={`flex flex-row items-center text-xl ${isActiveRoute(
               "/"
             )} w-[190px]`}
+            onOpenChange={setOpen}
           >
             <LayoutDashboard className="w-4 h-4 mr-2" />
             dashboard
-          </Link>
-          <Link
+          </MobileLink>
+          <MobileLink
             href="/biochip"
             className={`flex flex-row items-center text-xl ${isActiveRoute(
               "/biochip"
             )} w-[190px]`}
+            onOpenChange={setOpen}
           >
             <Cpu className="w-4 h-4 mr-2" />
             biochip
-          </Link>
-          <Link
+          </MobileLink>
+          <MobileLink
             href="/bounty"
             className={`flex flex-row items-center text-xl ${isActiveRoute(
               "/bounty"
             )} w-[190px]`}
+            onOpenChange={setOpen}
           >
             <Bug className="w-4 h-4 mr-2" />
             bounty
-          </Link>
+          </MobileLink>
         </div>
       </SheetContent>
     </Sheet>
   );
+}
+
+interface MobileLinkProps extends LinkProps {
+  onOpenChange?: (open: boolean) => void
+  children: React.ReactNode
+  className?: string
+}
+
+function MobileLink({
+  href,
+  onOpenChange,
+  className,
+  children,
+  ...props
+}: MobileLinkProps) {
+  const router = useRouter()
+  return (
+    <Link
+      href={href}
+      onClick={() => {
+        router.push(href.toString())
+        onOpenChange?.(false)
+      }}
+      className={cn(className)}
+      {...props}
+    >
+      {children}
+    </Link>
+  )
 }
