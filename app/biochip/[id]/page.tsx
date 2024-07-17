@@ -19,6 +19,8 @@ import {
   ERC6551_ADDRESSES,
 } from "@/components/contracts";
 import { Address } from "viem";
+import { RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Page({ params }: { params: { id: string } }) {
   const chainId = useChainId();
@@ -42,7 +44,7 @@ export default function Page({ params }: { params: { id: string } }) {
     defaultSalt
   )
 
-  const tokenBoundV3AccountDeployed = useBytecode({
+  const { data: tokenBoundV3AccountDeployed, refetch } = useBytecode({
     address: tokenBoundV3AccountAddress,
   });
 
@@ -108,7 +110,10 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <div className="flex flex-col gap-2 py-6 px-2 lg:px-4 h-full">
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-extrabold">BioChip #{params.id}</h1>
+        <div className="flex flex-row gap-2 items-center justify-between">
+          <h1 className="text-3xl font-extrabold">BioChip #{params.id}</h1>
+          <Button variant="outline" size="icon" onClick={() => refetch()}><RefreshCw className="w-6 h-6" /></Button>
+        </div>
         <p className="text-md text-muted-foreground">
           your biochip information
         </p>
@@ -116,7 +121,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <div className="flex flex-col lg:flex-row lg:items-start gap-4 mt-4 lg:h-full">
         <BioChipImage />
         {
-          tokenBoundV3AccountDeployed.data?.length && tokenBoundV3AccountDeployed.data.length > 2 ? (
+          tokenBoundV3AccountDeployed?.length && tokenBoundV3AccountDeployed.length > 2 ? (
             <BioChipInfo address={tokenBoundV3AccountAddress} />
           ) : (
             <BioChipInitialize id={params.id} />
