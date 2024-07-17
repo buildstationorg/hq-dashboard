@@ -3,3 +3,8 @@ export const BIOCHIP_CONTRACT_ADDRESS = {
   kaiaKairos: "0x5D98e2C833D8E9A70fee8b271FEd59b4374C8ef6",
   default: "0x5D98e2C833D8E9A70fee8b271FEd59b4374C8ef6",
 } as const;
+
+export const ERC6551_ADDRESSES = {
+  registryV3: "0x5D98e2C833D8E9A70fee8b271FEd59b4374C8ef6",
+  defaultImplementation: "0x41C8f39463A868d3A88af00cd0fe7102F30E44eC",
+}
