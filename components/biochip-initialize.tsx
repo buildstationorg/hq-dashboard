@@ -6,17 +6,11 @@ import {
   type BaseError,
   useAccount,
   useChainId,
-  useBalance,
   useWaitForTransactionReceipt,
   useWriteContract,
-  useReadContract,
-  useBytecode,
 } from "wagmi";
 import {
   Binary,
-  CircleAlert,
-  Minus,
-  Info,
   Loader2,
   Check,
   X,
