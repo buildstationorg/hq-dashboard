@@ -14,11 +14,24 @@ import {
 import {
   useAccount,
 } from "wagmi";
+import { useToast } from "@/components/ui/use-toast"
 
 export default function RequestFaucet() {
   const account = useAccount();
+  const { toast } = useToast()
   function requestFaucet() {
-    fetch("https://api-baobab.wallet.klaytn.com/faucet/run?address=" + account.address)
+    fetch("https://api-baobab.wallet.klaytn.com/faucet/run?address=" + account.address, { method: "POST" }).then((res: any) => {
+      if (res.status === 200 && res.result === "SUCCESS") {
+        toast({
+          description: "request faucet success",
+        })
+      } else {
+        toast({
+          variant: "destructive",
+          description: "There was a problem with your request.",
+        })
+      }
+    })
   }
 
   return (
