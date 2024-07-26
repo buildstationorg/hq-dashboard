@@ -19,6 +19,7 @@ import {
   useAccount,
   useChainId,
   useReadContracts,
+  useBytecode
 } from "wagmi";
 import { useMemo } from "react";
 import Image from "next/image";
@@ -117,29 +118,32 @@ export default function BioChipStash() {
         const bioChip = row.original
    
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(bioChip.bioChipNumber)}
-              >
-                Copy BioChip #
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link href={`/biochip/${bioChip.bioChipNumber}`}>
-                  View BioChip
-                </Link>
+          // <DropdownMenu>
+          //   <DropdownMenuTrigger asChild>
+          //     <Button variant="ghost" className="h-8 w-8 p-0">
+          //       <span className="sr-only">Open menu</span>
+          //       <MoreHorizontal className="h-4 w-4" />
+          //     </Button>
+          //   </DropdownMenuTrigger>
+          //   <DropdownMenuContent align="end">
+          //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          //     <DropdownMenuItem
+          //       onClick={() => navigator.clipboard.writeText(bioChip.bioChipNumber)}
+          //     >
+          //       Copy BioChip #
+          //     </DropdownMenuItem>
+          //     <DropdownMenuSeparator />
+          //     <DropdownMenuItem>
+          //       <Link href={`/biochip/${bioChip.bioChipNumber}`}>
+          //         View BioChip
+          //       </Link>
                 
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          //     </DropdownMenuItem>
+          //   </DropdownMenuContent>
+          // </DropdownMenu>
+          <Button variant="secondary" asChild>
+            <Link href={`/biochip/${bioChip.bioChipNumber}`}>initialize</Link>
+          </Button>
         )
       },
     },
