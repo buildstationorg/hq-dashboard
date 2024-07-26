@@ -28,14 +28,6 @@ import { BIOCHIP_CONTRACT_ADDRESS } from "@/components/contracts";
 import { Address, formatUnits } from "viem";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, MoreHorizontal } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import Link from "next/link";
 
 type BioChip = {
@@ -118,29 +110,6 @@ export default function BioChipStash() {
         const bioChip = row.original
    
         return (
-          // <DropdownMenu>
-          //   <DropdownMenuTrigger asChild>
-          //     <Button variant="ghost" className="h-8 w-8 p-0">
-          //       <span className="sr-only">Open menu</span>
-          //       <MoreHorizontal className="h-4 w-4" />
-          //     </Button>
-          //   </DropdownMenuTrigger>
-          //   <DropdownMenuContent align="end">
-          //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          //     <DropdownMenuItem
-          //       onClick={() => navigator.clipboard.writeText(bioChip.bioChipNumber)}
-          //     >
-          //       Copy BioChip #
-          //     </DropdownMenuItem>
-          //     <DropdownMenuSeparator />
-          //     <DropdownMenuItem>
-          //       <Link href={`/biochip/${bioChip.bioChipNumber}`}>
-          //         View BioChip
-          //       </Link>
-                
-          //     </DropdownMenuItem>
-          //   </DropdownMenuContent>
-          // </DropdownMenu>
           <Button variant="secondary" asChild>
             <Link href={`/biochip/${bioChip.bioChipNumber}`}>initialize</Link>
           </Button>
