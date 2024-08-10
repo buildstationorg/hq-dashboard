@@ -11,33 +11,45 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  useAccount,
-} from "wagmi";
-import { useToast } from "@/components/ui/use-toast"
+import { useAccount } from "wagmi";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function RequestFaucet() {
   const account = useAccount();
-  const { toast } = useToast()
+  const { toast } = useToast();
   function requestFaucet() {
-    fetch("https://api-baobab.wallet.klaytn.com/faucet/run?address=" + account.address, { method: "POST" }).then((res: any) => {
-      if (res.status === 200 && res.result === "SUCCESS") {
-        toast({
-          description: "request faucet success",
-        })
-      } else {
+    fetch(
+      "https://api-baobab.wallet.klaytn.com/faucet/run?address=" +
+        account.address,
+      { method: "POST" }
+    )
+      .then((res: any) => res.json())
+      .then((data: any) => {
+        if (data.result === "SUCCESS") {
+          toast({
+            description: "Request faucet success",
+          });
+        } else {
+          toast({
+            variant: "destructive",
+            description: "Already requested faucet",
+          });
+        }
+      })
+      .catch((error) =>
         toast({
           variant: "destructive",
-          description: "There was a problem with your request.",
+          description: `There was a problem with your request. Log: ${error}`,
         })
-      }
-    })
+      );
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon"><Droplets className="w-4 h-4" /></Button>
+        <Button variant="outline" size="icon">
+          <Droplets className="w-4 h-4" />
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
