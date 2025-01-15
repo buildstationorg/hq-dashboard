@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import BountyContent from "@/components/bounty-content";
 
 export const metadata: Metadata = {
-  title: "buildstation HQ - Bounty",
-  description: "Earn your bread and make your mark",
+  title: "buildstation HQ - Inspect",
+  description: "scrutinize onchain contracts",
   metadataBase: new URL("https://hq.buildstation.org/"),
   openGraph: {
-    title: "buildstation HQ - Bounty",
-    description: "Earn your bread and make your mark",
-    url: "https://hq.buildstation.org/bounty",
+    title: "buildstation HQ - inspect",
+    description: "scrutinize onchain contracts",
+    url: "https://hq.buildstation.org/inspect",
     siteName: "buildstation",
     images: [
       {
@@ -30,14 +29,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Bounty() {
+export default function Inspect() {
   return (
     <div className="flex flex-col gap-2 py-6 px-2 lg:px-4 h-[768px]">
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-extrabold">Bounty</h1>
-        <p className="text-md text-muted-foreground">Earn your bread and make your mark</p>
+        <h1 className="text-3xl font-extrabold">Inspect</h1>
+        <p className="text-md text-muted-foreground">Scrutinize onchain contracts</p>
       </div>
-      <BountyContent />
     </div>
   );
 }

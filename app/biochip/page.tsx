@@ -5,12 +5,12 @@ import BiochipStash from "@/components/biochip-stash";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "buildstation HQ - biochip",
-  description: "the manisfestation of your digital identity and legacy",
+  title: "buildstation HQ - Biochip",
+  description: "The manisfestation of your digital identity and legacy",
   metadataBase: new URL("https://hq.buildstation.org/"),
   openGraph: {
-    title: "buildstation HQ - biochip",
-    description: "the manisfestation of your digital identity and legacy",
+    title: "buildstation HQ - Biochip",
+    description: "The manisfestation of your digital identity and legacy",
     url: "https://hq.buildstation.org/biochip",
     siteName: "buildstation",
     images: [
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "buildstation HQ - biochip",
-    description: "the manisfestation of your digital identity and legacy",
+    title: "buildstation HQ - Biochip",
+    description: "The manisfestation of your digital identity and legacy",
     creator: "@buildstationorg",
     images: ["/buildstation-biochip.png"],
   },
@@ -37,9 +37,9 @@ export default function BioChip() {
   return (
     <div className="flex flex-col gap-2 py-6 px-2 lg:px-4 h-full">
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-extrabold">biochip</h1>
+        <h1 className="text-3xl font-extrabold">Biochip</h1>
         <p className="text-md text-muted-foreground">
-          the manisfestation of your digital identity and legacy
+          The manisfestation of your digital identity and legacy
         </p>
       </div>
       <div className="flex flex-col lg:flex-row gap-4 mt-4 lg:h-[400px]">
