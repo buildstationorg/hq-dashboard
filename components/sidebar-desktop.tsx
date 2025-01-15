@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, Cpu, Bug, SearchCode } from "lucide-react";
+import { LayoutDashboard, Cpu, HandCoins, SearchCode, Laptop, Crosshair, Briefcase } from "lucide-react";
 
 export default function SidebarDesktop() {
   const pathname = usePathname();
@@ -43,13 +43,40 @@ export default function SidebarDesktop() {
         Inspect
       </Link>
       <Link
-        href="/bounty"
+        href="/grants"
         className={`flex flex-row items-center text-xl ${isActiveRoute(
-          "/bounty"
+          "/grants"
         )} w-[190px]`}
       >
-        <Bug className="w-6 h-6 mr-2" />
-        Bounty
+        <HandCoins className="w-6 h-6 mr-2" />
+        Grants
+      </Link>
+      <Link
+        href="/bounties"
+        className={`flex flex-row items-center text-xl ${isActiveRoute(
+          "/bounties"
+        )} w-[190px]`}
+      >
+        <Crosshair className="w-6 h-6 mr-2" />
+        Bounties
+      </Link>
+      <Link
+        href="/hackathon"
+        className={`flex flex-row items-center text-xl ${isActiveRoute(
+          "/hackathon"
+        )} w-[190px]`}
+      >
+        <Laptop className="w-6 h-6 mr-2" />
+        Hackathon
+      </Link>
+      <Link
+        href="/jobs"
+        className={`flex flex-row items-center text-xl ${isActiveRoute(
+          "/jobs"
+        )} w-[190px]`}
+      >
+        <Briefcase className="w-6 h-6 mr-2" />
+        Jobs
       </Link>
     </div>
   );

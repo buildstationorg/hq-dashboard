@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "buildstation HQ - Inspect",
-  description: "scrutinize onchain contracts",
+  title: "buildstation HQ - Grants",
+  description: "Financing the explorers of tomorrow",
   metadataBase: new URL("https://hq.buildstation.org/"),
   openGraph: {
-    title: "buildstation HQ - Inspect",
-    description: "Scrutinize onchain contracts",
-    url: "https://hq.buildstation.org/inspect",
+    title: "buildstation HQ - Grants",
+    description: "Financing the explorers of tomorrow",
+    url: "https://hq.buildstation.org/grants",
     siteName: "buildstation",
     images: [
       {
@@ -22,19 +22,19 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "buildstation HQ - Inspect",
-    description: "Scrutinize onchain contracts",
+    title: "buildstation HQ - Grants",
+    description: "Financing the explorers of tomorrow",
     creator: "@buildstationorg",
     images: ["/buildstation-bounty.png"],
   },
 };
 
-export default function Inspect() {
+export default function Grants() {
   return (
     <div className="flex flex-col gap-2 py-6 px-2 lg:px-4 h-[768px]">
       <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-extrabold">Inspect</h1>
-        <p className="text-md text-muted-foreground">Scrutinize onchain contracts</p>
+        <h1 className="text-3xl font-extrabold">Grants</h1>
+        <p className="text-md text-muted-foreground">Financing the explorers of tomorrow</p>
       </div>
     </div>
   );
